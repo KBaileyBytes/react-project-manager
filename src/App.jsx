@@ -1,24 +1,10 @@
 import SideBar from "./components/SideBar";
 import { useState, useRef } from "react";
 import ProjectForm from "./components/ProjectForm";
+import sampleProjects from "./sample-data";
 
 function App() {
-  const [projects, setProjects] = useState([
-    {
-      title: "Get a job",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit deserunt voluptatum atque excepturi odit quos, at quisquam aliquam impedit laudantium, nobis consequuntur vel sit deleniti, corporis numquam sapiente expedita quidem?",
-      dueDate: new Date(),
-      tasks: [],
-    },
-    {
-      title: "Learn React",
-      description:
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit deserunt voluptatum atque excepturi odit quos, at quisquam aliquam impedit laudantium, nobis consequuntur vel sit deleniti, corporis numquam sapiente expedita quidem?",
-      dueDate: new Date(),
-      tasks: [],
-    },
-  ]);
+  const [projects, setProjects] = useState(sampleProjects);
   const [isOpen, setIsOpen] = useState(false);
   const [activeProject, setActiveProject] = useState();
   const ref = useRef();
@@ -62,6 +48,15 @@ function App() {
     }));
   }
 
+  function handleRemoveProject() {
+    setProjects((oldProjects) =>
+      oldProjects.filter(
+        (project) => project.title !== activeProject.project.title
+      )
+    );
+    setActiveProject(null);
+  }
+
   function onClick(cancel) {
     const openState = typeof cancel === "object";
     setIsOpen(openState);
@@ -79,6 +74,7 @@ function App() {
         projects={projects}
         onNewTask={handleNewTask}
         onRemoveTask={handleRemoveTask}
+        onRemoveProject={handleRemoveProject}
         onProjectSelect={handleSelectedProject}
         activeProject={activeProject}
         ref={ref}

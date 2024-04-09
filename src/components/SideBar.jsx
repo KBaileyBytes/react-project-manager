@@ -12,6 +12,7 @@ const SideBar = forwardRef(
       onNewTask,
       activeProject,
       onRemoveTask,
+      onRemoveProject,
     },
     ref
   ) => {
@@ -46,6 +47,7 @@ const SideBar = forwardRef(
                   project={activeProject.project}
                   onNewTask={onNewTask}
                   onRemoveTask={onRemoveTask}
+                  onRemoveProject={onRemoveProject}
                   ref={ref}
                 />,
                 document.getElementById("main-content")
